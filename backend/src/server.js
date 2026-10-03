@@ -18,6 +18,9 @@ app.get("/api/health", (req, res) => {
     res.json({ ok: true, app: "Shakti backend" });
 });
 
+// Login routes
+app.use("/api/auth", require("./routes/auth"));
+
 // Connect to the database first, then start the server
 const PORT = process.env.PORT || 5000;
 connectDB().then(() => {
