@@ -1,1 +1,1 @@
-# shakt
+# shakti
