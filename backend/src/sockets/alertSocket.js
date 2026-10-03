@@ -314,6 +314,8 @@ module.exports = function alertSocket(io, socket) {
                     alertId: alert._id,
                     status: "resolved",
                 });
+                // Tell volunteers who were waiting for a spot that it is over
+                notifyOthers(io, alert, "alert:closed", { status: "resolved" });
                 return;
             }
 

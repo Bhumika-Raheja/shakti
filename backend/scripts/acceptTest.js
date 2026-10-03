@@ -107,6 +107,19 @@ async function main() {
             : "TEST 4 FAILED: " + JSON.stringify(list)
     );
 
+    // A spot opened up: the volunteer who was turned away tries again
+    const turnedAway = losers[0];
+    turnedAway.claimed = null;
+    turnedAway.error = null;
+    turnedAway.socket.emit("alert:accept", { alertId });
+    await wait(800);
+    const activeNow = list.filter((r) => r.status !== "left").length;
+    console.log(
+        turnedAway.claimed && activeNow === 3
+            ? "TEST 4B PASSED: a spot opened up, and the volunteer who was turned away joined"
+            : `TEST 4B FAILED: claimed=${!!turnedAway.claimed}, active helpers=${activeNow}`
+    );
+
     // A helper who is still on the alert shares live location
     const remaining = winners.filter((h) => h !== leadHelper);
     locations.length = 0;
