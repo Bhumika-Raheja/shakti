@@ -1,4 +1,4 @@
-// Creates two test volunteers in the database (development only).
+// Creates test volunteers in the database (development only).
 // Run with:  node scripts/seed.js
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -7,8 +7,11 @@ const Volunteer = require("../src/models/Volunteer");
 
 // Coordinates are [longitude, latitude]
 const volunteers = [
-    { phone: "9000000001", name: "Ananya S.", area: "Indiranagar", coords: [77.643, 12.979] }, // near
-    { phone: "9000000002", name: "Far Volunteer", area: "Whitefield", coords: [77.7, 13.02] }, // far
+    { phone: "9000000001", name: "Ananya S.", area: "Indiranagar", coords: [77.643, 12.979] },  // near
+    { phone: "9000000003", name: "Meera K.", area: "Indiranagar", coords: [77.6415, 12.979] },  // near
+    { phone: "9000000004", name: "Kavya R.", area: "Indiranagar", coords: [77.642, 12.9785] },  // near
+    { phone: "9000000005", name: "Divya M.", area: "Indiranagar", coords: [77.6395, 12.979] },  // near
+    { phone: "9000000002", name: "Far Volunteer", area: "Whitefield", coords: [77.7, 13.02] },  // far (about 6 km)
 ];
 
 async function run() {
@@ -19,7 +22,7 @@ async function run() {
         const user = await User.findOneAndUpdate(
             { phone: v.phone },
             { name: v.name, role: "volunteer" },
-            { upsert: true, new: true, setDefaultsOnInsert: true }
+            { upsert: true, returnDocument: "after", setDefaultsOnInsert: true }
         );
         await Volunteer.findOneAndUpdate(
             { user: user._id },
@@ -29,7 +32,7 @@ async function run() {
                 area: v.area,
                 location: { type: "Point", coordinates: v.coords },
             },
-            { upsert: true, new: true, setDefaultsOnInsert: true }
+            { upsert: true, returnDocument: "after", setDefaultsOnInsert: true }
         );
         console.log(`Volunteer ready: ${v.name} (${v.phone})`);
     }

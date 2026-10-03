@@ -45,14 +45,15 @@ async function main() {
             ? `TEST 1 PASSED: near volunteer got the alert: "${nearGot.label}"`
             : "TEST 1 FAILED: near volunteer got nothing"
     );
+
     console.log(
         !farGot
             ? "TEST 2 PASSED: far volunteer was NOT alerted"
             : "TEST 2 FAILED: far volunteer got the alert"
     );
     console.log(
-        created && created.notifiedCount === 1
-            ? "TEST 3 PASSED: the user was told 1 volunteer was notified"
+        created && created.notifiedCount === 4
+            ? "TEST 3 PASSED: the user was told 4 volunteers were notified"
             : "TEST 3 FAILED: " + JSON.stringify(created)
     );
 
