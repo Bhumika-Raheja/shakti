@@ -21,6 +21,9 @@ app.get("/api/health", (req, res) => {
 // Login routes
 app.use("/api/auth", require("./routes/auth"));
 
+// Trusted contacts routes
+app.use("/api/contacts", require("./routes/contacts"));
+
 // Connect to the database first, then start the server
 const PORT = process.env.PORT || 5000;
 connectDB().then(() => {
