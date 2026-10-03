@@ -1,4 +1,4 @@
-# Shakti: women's safety app (student project for internships and placements)
+# Shakti: women's safety app 
 
 ## What it does
 - A woman presses and holds an SOS button for 3 seconds. An alert is created with her live location.
