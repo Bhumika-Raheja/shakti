@@ -4,6 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const connectDB = require("./config/db");
 
 const app = express();
 
@@ -17,8 +18,10 @@ app.get("/api/health", (req, res) => {
     res.json({ ok: true, app: "Shakti backend" });
 });
 
-// Start the server
+// Connect to the database first, then start the server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Shakti server running on port ${PORT}`);
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Shakti server running on port ${PORT}`);
+    });
 });
