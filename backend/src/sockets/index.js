@@ -34,6 +34,9 @@ module.exports = function setupSockets(io) {
             role: socket.user.role,
         });
 
+        // Alert events (SOS, accept, and so on)
+        require("./alertSocket")(io, socket);
+
         socket.on("disconnect", () => {
             console.log(`Socket disconnected: ${socket.user.phone}`);
         });
