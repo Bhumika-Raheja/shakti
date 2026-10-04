@@ -2,7 +2,9 @@ const { z } = require("zod");
 const Alert = require("../models/Alert");
 const User = require("../models/User");
 const Volunteer = require("../models/Volunteer");
-const { findNearbyVolunteers, distanceInMeters } = require("../services/matching");
+const { findNearbyVolunteers, distanceInMeters } = require("../services/matching"); const { scheduleEscalation } = require("../services/escalation");
+const { notifyContacts } = require("../services/notify");
+
 
 const FIRST_RADIUS_METERS = 1000; // search within 1 km first
 const MAX_RESPONDERS = 3; // how many helpers can join one alert
@@ -134,6 +136,21 @@ module.exports = function alertSocket(io, socket) {
                 alertId: alert._id,
                 notifiedCount: volunteers.length,
             });
+
+            // If nobody accepts in time, widen the search (see services/escalation.js)
+            scheduleEscalation(io, alert._id);
+
+            // Message the trusted contacts. A failure here must not break the SOS.
+            try {
+                const sent = await notifyContacts(socket.user, lat, lng);
+                socket.emit("sos:contacts", {
+                    alertId: alert._id,
+                    count: sent.results.length,
+                    message: sent.text,
+                });
+            } catch (err) {
+                console.error("notifyContacts failed:", err.message);
+            }
         } catch (err) {
             console.error("sos:trigger failed:", err.message);
             socket.emit("sos:error", { message: "Could not send SOS" });
