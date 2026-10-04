@@ -3,7 +3,7 @@
 ## What it does
 - A woman presses and holds an SOS button for 3 seconds. An alert is created with her live location.
 - Her trusted contacts (max 5) get an SMS with a live location link.
-- Nearby verified volunteers (within 1 km, online) get a real-time alert. The first volunteer to accept claims it.
+- - Nearby verified volunteers (within 1 km, online) get a real-time alert. Up to 3 volunteers can accept; the first to accept is the lead. If the lead drops out, the next one becomes the lead.
 - The woman sees the volunteer coming on a live map, with steps: Alerted, Accepted, On the way, Arrived.
 - She can also send a silent alert, start a fake call, or call 112 (this only opens the phone dialer).
 - Users can report unsafe places, shown as a safety map.
