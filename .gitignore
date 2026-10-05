@@ -148,3 +148,5 @@ vite.config.ts.timestamp-*
 # Turbo Repo
 .turbo
 
+# Private ID documents of volunteers: never upload these to GitHub
+backend/uploads/

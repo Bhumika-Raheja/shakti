@@ -38,6 +38,14 @@ async function run() {
         console.log(`Volunteer ready: ${v.name} (${v.phone})`);
     }
 
+    // A test admin (admins are never created through the app)
+    await User.findOneAndUpdate(
+        { phone: "9000000099" },
+        { name: "Admin", role: "admin" },
+        { upsert: true, returnDocument: "after", setDefaultsOnInsert: true }
+    );
+    console.log("Admin ready: 9000000099");
+
     await mongoose.disconnect();
     console.log("Seed done");
 }

@@ -26,6 +26,25 @@ app.use("/api/auth", require("./routes/auth"));
 // Trusted contacts routes
 app.use("/api/contacts", require("./routes/contacts"));
 
+// Volunteer registration and the online switch
+app.use("/api/volunteers", require("./routes/volunteers"));
+
+// Admin tools (approve or suspend volunteers)
+app.use("/api/admin", require("./routes/admin"));
+
+// Friendly messages for upload mistakes and other unexpected errors.
+// This must come AFTER all the routes.
+app.use((err, req, res, next) => {
+    if (err.code === "LIMIT_FILE_SIZE") {
+        return res.status(400).json({ message: "File is too large (max 5 MB)" });
+    }
+    if (err.name === "MulterError" || err.message === "Only JPG, PNG or PDF files are allowed") {
+        return res.status(400).json({ message: err.message });
+    }
+    console.error(err);
+    res.status(500).json({ message: "Something went wrong" });
+});
+
 // Socket.io needs a plain HTTP server underneath Express
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
