@@ -19,4 +19,7 @@ const reportSchema = new mongoose.Schema(
 
 reportSchema.index({ location: "2dsphere" });
 
+// MongoDB deletes each report 30 days after it was created
+reportSchema.index({ createdAt: 1 }, { expireAfterSeconds: 30 * 24 * 60 * 60 });
+
 module.exports = mongoose.model("Report", reportSchema);

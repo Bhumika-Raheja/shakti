@@ -29,6 +29,9 @@ app.use("/api/contacts", require("./routes/contacts"));
 // Volunteer registration and the online switch
 app.use("/api/volunteers", require("./routes/volunteers"));
 
+// Unsafe-area reports for the safety map
+app.use("/api/reports", require("./routes/reports"));
+
 // Admin tools (approve or suspend volunteers)
 app.use("/api/admin", require("./routes/admin"));
 
