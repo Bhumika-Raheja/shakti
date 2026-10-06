@@ -61,7 +61,7 @@ type AlertContextValue = AlertState & {
 const AlertContext = createContext<AlertContextValue | null>(null);
 
 // Where is the phone right now?
-async function getPosition() {
+export async function getPosition() {
     if (USE_TEST_LOCATION) return TEST_LOCATION;
     const perm = await Location.requestForegroundPermissionsAsync();
     if (perm.status !== "granted") {

@@ -174,6 +174,8 @@ export default function SosScreen() {
                 ) : null}
 
                 <View style={{ height: spacing.lg }} />
+                <Button title="See live map" variant="outline" onPress={() => router.replace("/(user)/track")} />
+                <View style={{ height: spacing.lg }} />
                 <Button title="Call 112" variant="sos" onPress={call112} />
                 <View style={{ height: spacing.md }} />
                 <Button title="I am safe, cancel alert" variant="outline" onPress={confirmCancel} />
