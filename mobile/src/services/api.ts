@@ -1,6 +1,8 @@
 import axios from "axios";
 import { API_URL } from "../constants/config";
 
+let currentToken: string | null = null;
+
 // One ready-made connection to our backend
 export const api = axios.create({
     baseURL: API_URL + "/api",
@@ -9,11 +11,17 @@ export const api = axios.create({
 
 // Adds (or removes) the login token that proves who we are
 export function setAuthToken(token: string | null) {
+    currentToken = token;
     if (token) {
         api.defaults.headers.common.Authorization = `Bearer ${token}`;
     } else {
         delete api.defaults.headers.common.Authorization;
     }
+}
+
+// The live connection (socket) needs the token too
+export function getAuthToken() {
+    return currentToken;
 }
 
 // Turns any error into a short message a person can read
