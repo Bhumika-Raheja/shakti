@@ -7,4 +7,5 @@ export const API_URL = "http://10.73.49.1:5000";
 // While testing, pretend the phone is in Indiranagar, Bangalore, next to the
 // test volunteers in the database. Set this to false to use the real GPS.
 export const USE_TEST_LOCATION = true;
-export const TEST_LOCATION = { lat: 12.9784, lng: 77.6408 };
+export const TEST_LOCATION = { lat: 12.9784, lng: 77.6408 }; // the woman
+export const TEST_VOLUNTEER_LOCATION = { lat: 12.979, lng: 77.643 }; // a volunteer, about 250 m away

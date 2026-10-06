@@ -67,10 +67,19 @@ exports.setPrimary = async (req, res) => {
     });
     if (!contact) return res.status(404).json({ message: "Contact not found" });
 
-    await Contact.updateMany({ owner: req.user._id }, { isPrimary: false });
-    contact.isPrimary = true;
-    await contact.save();
-    res.json({ contact });
+    // First mark this one, THEN clear all the others. This way there is never
+    // a moment with no primary contact.
+    await Contact.updateOne(
+        { _id: contact._id, owner: req.user._id },
+        { isPrimary: true }
+    );
+    await Contact.updateMany(
+        { owner: req.user._id, _id: { $ne: contact._id } },
+        { isPrimary: false }
+    );
+
+    const updated = await Contact.findById(contact._id);
+    res.json({ contact: updated });
 };
 
 // DELETE /api/contacts/:id: remove a contact
