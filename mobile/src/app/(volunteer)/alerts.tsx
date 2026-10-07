@@ -91,9 +91,7 @@ export default function Alerts() {
                     <View style={{ height: spacing.lg }} />
                     <Button
                         title="Register as a volunteer"
-                        onPress={() =>
-                            Alert.alert("Coming next", "The registration form will be added in the next step.")
-                        }
+                        onPress={() => router.push("/register")}
                     />
                 </View>
             </SafeAreaView>
@@ -114,6 +112,8 @@ export default function Alerts() {
                             Our team checks every volunteer's ID. You will get alerts once you are approved.
                         </Text>
                     </View>
+                    <View style={{ height: spacing.lg }} />
+                    <Button title="Check again" variant="outline" onPress={reload} />
                 </View>
             </SafeAreaView>
         );

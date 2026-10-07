@@ -21,6 +21,7 @@ type AuthState = {
     loading: boolean;
     login: (token: string, user: User) => Promise<void>;
     logout: () => Promise<void>;
+    refreshUser: () => Promise<void>;
 };
 
 const TOKEN_KEY = "shakti_token";
@@ -66,8 +67,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
     }
 
+    // Asks the server for the latest details (for example, after a name change)
+    async function refreshUser() {
+        try {
+            const res = await api.get("/auth/me");
+            setUser(res.data.user);
+        } catch {
+            // keep what we have
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout }}>
+        <AuthContext.Provider value={{ user, loading, login, logout, refreshUser }}>
             {children}
         </AuthContext.Provider>
     );
