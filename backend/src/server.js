@@ -44,8 +44,19 @@ app.use((err, req, res, next) => {
     if (err.name === "MulterError" || err.message === "Only JPG, PNG or PDF files are allowed") {
         return res.status(400).json({ message: err.message });
     }
+    // A photo upload that was cut off half-way (for example, a weak connection)
+    if (err.message === "Unexpected end of form") {
+        return res
+            .status(400)
+            .json({ message: "The upload was interrupted. Please try again." });
+    }
     console.error(err);
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({
+        message:
+            process.env.NODE_ENV === "production"
+                ? "Something went wrong"
+                : `Something went wrong: ${err.message}`,
+    });
 });
 
 // Socket.io needs a plain HTTP server underneath Express
