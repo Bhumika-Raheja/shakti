@@ -64,7 +64,7 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 require("./sockets")(io);
 
-// Connect to the database first, then start the serve
+// Connect to the database first, then start the server
 const PORT = process.env.PORT || 5000;
 connectDB().then(() => {
     server.listen(PORT, () => {
