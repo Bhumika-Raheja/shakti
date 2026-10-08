@@ -10,6 +10,9 @@ const connectDB = require("./config/db");
 
 const app = express();
 
+// We run behind Render's gateway, so trust it to tell us the real visitor address
+app.set("trust proxy", 1);
+
 // Security and basic helpers
 app.use(helmet());            // adds safe HTTP headers
 app.use(cors());              // lets the mobile app talk to this server

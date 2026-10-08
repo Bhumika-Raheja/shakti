@@ -3,7 +3,7 @@
 // Press Ctrl + C to cancel the alert ("I am safe").
 const { io } = require("socket.io-client");
 
-const BASE = "http://localhost:5000";
+const BASE = process.env.BASE_URL || "http://localhost:5000";
 const HERE = { lat: 12.9784, lng: 77.6408 }; // Indiranagar, Bangalore
 
 async function main() {

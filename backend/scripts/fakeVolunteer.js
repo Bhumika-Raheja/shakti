@@ -3,7 +3,7 @@
 // Or choose another seeded volunteer:  node scripts/fakeVolunteer.js 9000000003
 const { io } = require("socket.io-client");
 
-const BASE = "http://localhost:5000";
+const BASE = process.env.BASE_URL || "http://localhost:5000";
 const PHONE = process.argv[2] || "9000000001";
 
 async function main() {
