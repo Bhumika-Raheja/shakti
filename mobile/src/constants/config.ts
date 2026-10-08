@@ -2,7 +2,7 @@
 // Use your laptop's IPv4 address from the command: ipconfig
 // It changes when you switch Wi-Fi networks, so update it here when it does.
 // (When the backend is deployed online, this becomes its web address.)
-export const API_URL = "http://10.87.208.1";
+export const API_URL = "https://shakti-2win.onrender.com";
 
 // While testing, pretend the phone is in Indiranagar, Bangalore, next to the
 // test volunteers in the database. Set this to false to use the real GPS.
