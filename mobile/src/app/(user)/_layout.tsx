@@ -36,6 +36,15 @@ export default function UserTabs() {
                 }}
             />
             <Tabs.Screen
+                name="safety"
+                options={{
+                    title: "Safety",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="map-outline" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tabs.Screen
                 name="contacts"
                 options={{
                     title: "Contacts",
