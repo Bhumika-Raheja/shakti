@@ -74,7 +74,10 @@ export async function getPosition() {
 }
 
 export function AlertProvider({ children }: { children: ReactNode }) {
-    const { user } = useAuth();
+    // Keep a copy of the latest state that the event handlers can read
+    useEffect(() => {
+        stateRef.current = state;
+    }, [state]);
     const [state, setState] = useState<AlertState>(emptyState);
     const socketRef = useRef<Socket | null>(null);
     const stateRef = useRef<AlertState>(state);
@@ -83,10 +86,7 @@ export function AlertProvider({ children }: { children: ReactNode }) {
 
     // Listen to the server (only for women using the app)
     useEffect(() => {
-        if (!user || user.role !== "user") {
-            setState(emptyState);
-            return;
-        }
+        if (!userId || userRole !== "user") return;
 
         const socket = connectSocket();
         socketRef.current = socket;
@@ -163,7 +163,7 @@ export function AlertProvider({ children }: { children: ReactNode }) {
             disconnectSocket();
             socketRef.current = null;
         };
-    }, [user?._id, user?.role]);
+    }, [userId, userRole]);
 
     // While an SOS is on, send the woman's position every 5 seconds
     useEffect(() => {

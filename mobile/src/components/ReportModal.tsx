@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { colors, radius, spacing } from "../constants/theme";
 import Button from "./Button";
@@ -25,17 +25,19 @@ type Props = {
     onSubmit: (type: ReportType) => void;
 };
 
-// A small pop-up for reporting an unsafe place at the user's current location
-export default function ReportModal({ visible, saving, error, onClose, onSubmit }: Props) {
+// A small pop-up for reporting an unsafe place at the user's current location.
+// The form inside starts fresh every time the pop-up opens.
+export default function ReportModal(props: Props) {
+    return (
+        <Modal visible={props.visible} transparent animationType="fade" onRequestClose={props.onClose}>
+            <View style={styles.backdrop}>{props.visible ? <ReportForm {...props} /> : null}</View>
+        </Modal>
+    );
+}
+
+function ReportForm({ saving, error, onClose, onSubmit }: Props) {
     const [type, setType] = useState<ReportType | null>(null);
     const [localError, setLocalError] = useState("");
-
-    useEffect(() => {
-        if (visible) {
-            setType(null);
-            setLocalError("");
-        }
-    }, [visible]);
 
     function submit() {
         if (!type) {
@@ -49,41 +51,37 @@ export default function ReportModal({ visible, saving, error, onClose, onSubmit 
     const shownError = localError || error;
 
     return (
-        <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-            <View style={styles.backdrop}>
-                <View style={styles.card}>
-                    <Text style={styles.title}>Report an unsafe place</Text>
-                    <Text style={styles.sub}>
-                        This reports the place where you are now. Your report is anonymous: others see only
-                        the place and what happened, never your name.
+        <View style={styles.card}>
+            <Text style={styles.title}>Report an unsafe place</Text>
+            <Text style={styles.sub}>
+                This reports the place where you are now. Your report is anonymous: others see only the
+                place and what happened, never your name.
+            </Text>
+
+            {OPTIONS.map((o) => (
+                <Pressable
+                    key={o.type}
+                    onPress={() => setType(o.type)}
+                    style={[styles.option, type === o.type && styles.optionOn]}
+                >
+                    <Text style={[styles.optionTitle, type === o.type && { color: colors.rose }]}>
+                        {REPORT_LABEL[o.type]}
                     </Text>
+                    <Text style={styles.optionHint}>{o.hint}</Text>
+                </Pressable>
+            ))}
 
-                    {OPTIONS.map((o) => (
-                        <Pressable
-                            key={o.type}
-                            onPress={() => setType(o.type)}
-                            style={[styles.option, type === o.type && styles.optionOn]}
-                        >
-                            <Text style={[styles.optionTitle, type === o.type && { color: colors.rose }]}>
-                                {REPORT_LABEL[o.type]}
-                            </Text>
-                            <Text style={styles.optionHint}>{o.hint}</Text>
-                        </Pressable>
-                    ))}
+            <Text style={styles.warn}>
+                If you are in danger right now, use the SOS button or call 112.
+            </Text>
 
-                    <Text style={styles.warn}>
-                        If you are in danger right now, use the SOS button or call 112.
-                    </Text>
+            {shownError ? <Text style={styles.error}>{shownError}</Text> : null}
 
-                    {shownError ? <Text style={styles.error}>{shownError}</Text> : null}
-
-                    <View style={{ height: spacing.md }} />
-                    <Button title="Send report" onPress={submit} loading={saving} />
-                    <View style={{ height: spacing.sm }} />
-                    <Button title="Cancel" variant="outline" onPress={onClose} disabled={saving} />
-                </View>
-            </View>
-        </Modal>
+            <View style={{ height: spacing.md }} />
+            <Button title="Send report" onPress={submit} loading={saving} />
+            <View style={{ height: spacing.sm }} />
+            <Button title="Cancel" variant="outline" onPress={onClose} disabled={saving} />
+        </View>
     );
 }
 

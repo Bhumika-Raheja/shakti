@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     KeyboardAvoidingView,
     Modal,
@@ -26,30 +26,23 @@ type Props = {
     onSave: (c: ContactInput) => void;
 };
 
-// A small pop-up form used to add a contact or edit one
-export default function ContactModal({
-    visible,
-    title,
-    initial,
-    saving,
-    error,
-    onClose,
-    onSave,
-}: Props) {
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
-    const [relation, setRelation] = useState<Relation>("Family");
-    const [localError, setLocalError] = useState("");
+// A small pop-up form used to add a contact or edit one.
+// The form inside starts fresh every time the pop-up opens.
+export default function ContactModal(props: Props) {
+    return (
+        <Modal visible={props.visible} transparent animationType="fade" onRequestClose={props.onClose}>
+            <KeyboardAvoidingView behavior="padding" style={styles.backdrop}>
+                {props.visible ? <ContactForm {...props} /> : null}
+            </KeyboardAvoidingView>
+        </Modal>
+    );
+}
 
-    // Every time the form opens, fill it with the contact being edited (or empty)
-    useEffect(() => {
-        if (visible) {
-            setName(initial?.name ?? "");
-            setPhone(initial?.phone ?? "");
-            setRelation(initial?.relation ?? "Family");
-            setLocalError("");
-        }
-    }, [visible, initial]);
+function ContactForm({ title, initial, saving, error, onClose, onSave }: Props) {
+    const [name, setName] = useState(initial?.name ?? "");
+    const [phone, setPhone] = useState(initial?.phone ?? "");
+    const [relation, setRelation] = useState<Relation>(initial?.relation ?? "Family");
+    const [localError, setLocalError] = useState("");
 
     function submit() {
         if (!name.trim()) {
@@ -67,57 +60,53 @@ export default function ContactModal({
     const shownError = localError || error;
 
     return (
-        <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-            <KeyboardAvoidingView behavior="padding" style={styles.backdrop}>
-                <View style={styles.card}>
-                    <Text style={styles.title}>{title}</Text>
+        <View style={styles.card}>
+            <Text style={styles.title}>{title}</Text>
 
-                    <Text style={styles.label}>Name</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="e.g. Mom"
-                        placeholderTextColor={colors.textMuted}
-                        value={name}
-                        onChangeText={setName}
-                        maxLength={50}
-                    />
+            <Text style={styles.label}>Name</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="e.g. Mom"
+                placeholderTextColor={colors.textMuted}
+                value={name}
+                onChangeText={setName}
+                maxLength={50}
+            />
 
-                    <Text style={styles.label}>Mobile number</Text>
-                    <View style={styles.phoneRow}>
-                        <Text style={styles.prefix}>+91</Text>
-                        <TextInput
-                            style={styles.phoneInput}
-                            placeholder="10-digit number"
-                            placeholderTextColor={colors.textMuted}
-                            keyboardType="number-pad"
-                            maxLength={10}
-                            value={phone}
-                            onChangeText={(t) => setPhone(t.replace(/[^0-9]/g, ""))}
-                        />
-                    </View>
+            <Text style={styles.label}>Mobile number</Text>
+            <View style={styles.phoneRow}>
+                <Text style={styles.prefix}>+91</Text>
+                <TextInput
+                    style={styles.phoneInput}
+                    placeholder="10-digit number"
+                    placeholderTextColor={colors.textMuted}
+                    keyboardType="number-pad"
+                    maxLength={10}
+                    value={phone}
+                    onChangeText={(t) => setPhone(t.replace(/[^0-9]/g, ""))}
+                />
+            </View>
 
-                    <Text style={styles.label}>Relation</Text>
-                    <View style={styles.chips}>
-                        {RELATIONS.map((r) => (
-                            <Pressable
-                                key={r}
-                                onPress={() => setRelation(r)}
-                                style={[styles.chip, relation === r && styles.chipOn]}
-                            >
-                                <Text style={[styles.chipText, relation === r && styles.chipTextOn]}>{r}</Text>
-                            </Pressable>
-                        ))}
-                    </View>
+            <Text style={styles.label}>Relation</Text>
+            <View style={styles.chips}>
+                {RELATIONS.map((r) => (
+                    <Pressable
+                        key={r}
+                        onPress={() => setRelation(r)}
+                        style={[styles.chip, relation === r && styles.chipOn]}
+                    >
+                        <Text style={[styles.chipText, relation === r && styles.chipTextOn]}>{r}</Text>
+                    </Pressable>
+                ))}
+            </View>
 
-                    {shownError ? <Text style={styles.error}>{shownError}</Text> : null}
+            {shownError ? <Text style={styles.error}>{shownError}</Text> : null}
 
-                    <View style={{ height: spacing.lg }} />
-                    <Button title="Save" onPress={submit} loading={saving} />
-                    <View style={{ height: spacing.sm }} />
-                    <Button title="Cancel" variant="outline" onPress={onClose} disabled={saving} />
-                </View>
-            </KeyboardAvoidingView>
-        </Modal>
+            <View style={{ height: spacing.lg }} />
+            <Button title="Save" onPress={submit} loading={saving} />
+            <View style={{ height: spacing.sm }} />
+            <Button title="Cancel" variant="outline" onPress={onClose} disabled={saving} />
+        </View>
     );
 }
 

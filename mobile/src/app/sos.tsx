@@ -23,7 +23,7 @@ const STATUS_LABEL: Record<string, string> = {
 export default function SosScreen() {
     const router = useRouter();
     const a = useAlert();
-    const [now, setNow] = useState(Date.now());
+    const [now, setNow] = useState(() => Date.now());
 
     // A running clock for the timer
     useEffect(() => {

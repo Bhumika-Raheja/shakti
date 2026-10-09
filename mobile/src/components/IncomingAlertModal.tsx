@@ -12,7 +12,7 @@ const RESPOND_SECONDS = 45;
 export default function IncomingAlertModal() {
   const { incoming, active, accepting, accept, decline } = useVolunteer();
   const current = incoming[0];
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 1000);
@@ -28,7 +28,7 @@ export default function IncomingAlertModal() {
     if (current && secondsLeft <= 0 && accepting !== current.alertId) {
       decline(current.alertId);
     }
-  }, [secondsLeft, current?.alertId]);
+  }, [secondsLeft, current, accepting, decline]);
 
   if (!current || active) return null;
   const busy = accepting === current.alertId;

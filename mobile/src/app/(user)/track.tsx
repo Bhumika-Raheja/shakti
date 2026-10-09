@@ -1,4 +1,3 @@
-import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import { Alert, Linking, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,7 +14,6 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 export default function Track() {
-    const router = useRouter();
     const a = useAlert();
     const [me, setMe] = useState<{ lat: number; lng: number } | null>(null);
 

@@ -111,7 +111,10 @@ export function VolunteerProvider({ children }: { children: ReactNode }) {
 
     const socketRef = useRef<Socket | null>(null);
     const activeRef = useRef<ActiveHelp | null>(null);
-    activeRef.current = active;
+    // Keep a copy of the latest value that the event handlers can read
+    useEffect(() => {
+        activeRef.current = active;
+    }, [active]);
     const acceptingRef = useRef<string | null>(null);
     const simPos = useRef<Point | null>(null); // the pretend walking position (test mode)
 
@@ -140,19 +143,20 @@ export function VolunteerProvider({ children }: { children: ReactNode }) {
     }, []);
 
     // When a volunteer logs in, load their profile
+    const volunteerId = user?.role === "volunteer" ? user._id : null;
     useEffect(() => {
-        if (user && user.role === "volunteer") {
-            setLoadState("loading");
-            loadProfile();
-        } else {
+        if (!volunteerId) return;
+        loadProfile();
+        return () => {
+            // When this volunteer logs out (or another one logs in), forget everything
             setProfile(null);
             setRecent([]);
             setIncoming([]);
             setActive(null);
             setMyPos(null);
             setLoadState("loading");
-        }
-    }, [user?._id, user?.role]);
+        };
+    }, [volunteerId, loadProfile]);
 
     // Listen to the server (only for verified volunteers)
     useEffect(() => {

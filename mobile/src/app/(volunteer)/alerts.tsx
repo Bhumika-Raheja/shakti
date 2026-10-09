@@ -109,7 +109,7 @@ export default function Alerts() {
                     <View style={styles.card}>
                         <Text style={styles.cardTitle}>Your application is being checked</Text>
                         <Text style={styles.muted}>
-                            Our team checks every volunteer's ID. You will get alerts once you are approved.
+                            Our team checks every volunteer&apos;s ID. You will get alerts once you are approved.
                         </Text>
                     </View>
                     <View style={{ height: spacing.lg }} />
