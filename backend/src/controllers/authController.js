@@ -62,3 +62,19 @@ exports.verifyOtp = async (req, res) => {
 exports.me = (req, res) => {
     res.json({ user: req.user });
 };
+
+
+// PATCH /api/auth/me  { name }: saves the user's name
+const nameSchema = z.object({
+    name: z.string().trim().min(1, "Enter your name").max(50),
+});
+
+exports.updateMe = async (req, res) => {
+    const parsed = nameSchema.safeParse(req.body);
+    if (!parsed.success) {
+        return res.status(400).json({ message: parsed.error.issues[0].message });
+    }
+    req.user.name = parsed.data.name;
+    await req.user.save();
+    res.json({ user: req.user });
+};

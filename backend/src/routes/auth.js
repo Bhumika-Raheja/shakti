@@ -1,7 +1,12 @@
 const express = require("express");
 const rateLimit = require("express-rate-limit");
 const auth = require("../middleware/auth");
-const { sendOtp, verifyOtp, me } = require("../controllers/authController");
+const {
+    sendOtp,
+    verifyOtp,
+    me,
+    updateMe,
+} = require("../controllers/authController");
 
 const router = express.Router();
 
@@ -15,5 +20,6 @@ const otpLimiter = rateLimit({
 router.post("/send-otp", otpLimiter, sendOtp);
 router.post("/verify-otp", otpLimiter, verifyOtp);
 router.get("/me", auth, me);
+router.patch("/me", auth, updateMe);
 
 module.exports = router;
