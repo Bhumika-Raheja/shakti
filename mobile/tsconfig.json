@@ -13,8 +13,13 @@
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx",
+    "**/*.ts  x",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "example",
+    "dist"
   ]
 }
