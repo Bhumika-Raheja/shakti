@@ -74,15 +74,19 @@ export async function getPosition() {
 }
 
 export function AlertProvider({ children }: { children: ReactNode }) {
-    // Keep a copy of the latest state that the event handlers can read
+    const { user } = useAuth();
+    const userId = user?._id;
+    const userRole = user?.role;
+
+    const [state, setState] = useState<AlertState>(emptyState);
+    const socketRef = useRef<Socket | null>(null);
+    const stateRef = useRef<AlertState>(emptyState);
+    const sendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // Keep a copy of the latest state that the event handlers below can read
     useEffect(() => {
         stateRef.current = state;
     }, [state]);
-    const [state, setState] = useState<AlertState>(emptyState);
-    const socketRef = useRef<Socket | null>(null);
-    const stateRef = useRef<AlertState>(state);
-    stateRef.current = state;
-    const sendingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // Listen to the server (only for women using the app)
     useEffect(() => {
@@ -160,8 +164,10 @@ export function AlertProvider({ children }: { children: ReactNode }) {
             socket.off("alert:expanded", onExpanded);
             socket.off("alert:unanswered", onUnanswered);
             socket.off("location:update", onLocation);
+            if (sendingTimer.current) clearTimeout(sendingTimer.current);
             disconnectSocket();
             socketRef.current = null;
+            setState(emptyState); // forget the alert when the user logs out
         };
     }, [userId, userRole]);
 
@@ -185,7 +191,9 @@ export function AlertProvider({ children }: { children: ReactNode }) {
         const phase = stateRef.current.phase;
         if (phase === "sending" || phase === "active") return;
 
-        setState({ ...emptyState, phase: "sending", startedAt: Date.now() });
+        const sending: AlertState = { ...emptyState, phase: "sending", startedAt: Date.now() };
+        stateRef.current = sending; // so a second tap right now is ignored
+        setState(sending);
         try {
             const pos = await getPosition();
             const socket = socketRef.current;

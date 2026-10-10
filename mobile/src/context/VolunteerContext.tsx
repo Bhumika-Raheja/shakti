@@ -146,8 +146,9 @@ export function VolunteerProvider({ children }: { children: ReactNode }) {
     const volunteerId = user?.role === "volunteer" ? user._id : null;
     useEffect(() => {
         if (!volunteerId) return;
-        loadProfile();
+        const timer = setTimeout(loadProfile, 0); // run just after the screen is drawn
         return () => {
+            clearTimeout(timer);
             // When this volunteer logs out (or another one logs in), forget everything
             setProfile(null);
             setRecent([]);
