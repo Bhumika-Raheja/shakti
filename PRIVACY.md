@@ -58,7 +58,7 @@ No system is perfectly safe. This demo version also uses a test login code, so i
 - Add, edit or remove contacts in Contacts.
 - Volunteers can go offline at any time.
 - Turn off location or camera permission in your phone settings. Some features will stop working.
-- Ask us to delete your account and information by writing to YOUR-EMAIL-HERE. We will try to do it within 30 days.
+- Ask us to delete your account and information by writing to email@gmail.com. We will try to do it within 30 days.
 
 ## Age
 
@@ -66,4 +66,4 @@ Shakti is meant for people aged 18 and over.
 
 ## Changes and contact
 
-If we change this policy, the date at the top changes. Questions: YOUR-EMAIL-HERE.
+If we change this policy, the date at the top changes. Questions: email@gmail.com.

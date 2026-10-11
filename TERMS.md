@@ -46,4 +46,4 @@ You can stop using Shakti at any time and ask us to delete your information. We 
 
 ## Changes and contact
 
-If we change these terms, the date at the top changes. Questions: YOUR-EMAIL-HERE.
+If we change these terms, the date at the top changes. Questions: email@gmail.com.
