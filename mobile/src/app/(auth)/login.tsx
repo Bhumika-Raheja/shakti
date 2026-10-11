@@ -127,7 +127,9 @@ export default function Login() {
                 </View>
 
                 <Text style={styles.terms}>
-                    By continuing, you agree to our Terms and Privacy Policy
+                    By continuing, you agree to our{" "}
+                    <Text style={styles.link} onPress={() => router.push("/terms")}>Terms</Text> and{" "}
+                    <Text style={styles.link} onPress={() => router.push("/privacy")}>Privacy Policy</Text>
                 </Text>
             </ScrollView>
         </SafeAreaView>
@@ -239,6 +241,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     roleLabel: { fontSize: 13, color: colors.textMuted, marginTop: 2 },
+    link: { color: colors.rose, fontWeight: "700" },
     terms: {
         fontSize: 12,
         color: colors.textMuted,

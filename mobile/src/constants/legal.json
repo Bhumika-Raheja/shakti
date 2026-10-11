@@ -1,0 +1,168 @@
+{
+    "updated": "October 2026",
+    "contact": "YOUR-EMAIL-HERE",
+    "privacy": {
+        "title": "Privacy Policy",
+        "intro": "Shakti is a women's safety app made as a student project. This page explains in plain words what information the app uses, who can see it, and what you can do about it. Last updated: {{updated}}.",
+        "sections": [
+            {
+                "heading": "What we collect",
+                "bullets": [
+                    "Your phone number, to log you in.",
+                    "Your name, only if you add it. It appears in the SOS message your contacts receive.",
+                    "Your trusted contacts: the name, phone number and relation you type in. These are other people's details, so add only people who are happy to be on your list.",
+                    "Your location, only when you use Shakti for safety. When you send an SOS, your position goes to the helpers and to your contacts. The place where the SOS started is saved with the alert. While the SOS is on, your live position is passed to your helpers but is not saved.",
+                    "If you are a volunteer: your name, your area, a photo of a government ID, and your last known position while you are online.",
+                    "Unsafe-place reports: the type of report and the place. Nobody else can see who sent a report.",
+                    "Basic technical records, such as the time of a request and the internet address it came from, which our hosting service keeps in its logs."
+                ]
+            },
+            {
+                "heading": "What we do not collect",
+                "paragraphs": [
+                    "Shakti does not read your phone book, record audio or video, take photos except the ID photo you choose to add, or collect payment details. We have added no ads, analytics or tracking tools to the app."
+                ]
+            },
+            {
+                "heading": "How we use it",
+                "paragraphs": [
+                    "Only to run the features you see: logging in, sending alerts, finding volunteers near an alert, and showing maps and safety reports. We do not sell your information and we do not use it for advertising."
+                ]
+            },
+            {
+                "heading": "Who can see what",
+                "bullets": [
+                    "Volunteers near an alert see only the distance and a rounded area. After a volunteer accepts (up to three can help), they see your name and exact location until the alert ends.",
+                    "Your trusted contacts see the SOS message and your location link.",
+                    "You see the name and rating of the volunteers who accept. Phone numbers of women and volunteers are never shown to each other.",
+                    "The admin team can see volunteer sign-up details and ID photos, to check them.",
+                    "Everyone else sees nothing about you."
+                ]
+            },
+            {
+                "heading": "Messages to your contacts",
+                "paragraphs": [
+                    "In this demo version, the SOS message for your contacts is prepared by our server but is not sent as a real SMS. A future version would use an SMS service. Where the app says contacts were messaged, this is what it means."
+                ]
+            },
+            {
+                "heading": "Services that help us run Shakti",
+                "bullets": [
+                    "MongoDB Atlas keeps the database.",
+                    "Render runs the server. On its free plan, files such as ID photos can disappear when the server restarts.",
+                    "Expo builds the app.",
+                    "Map pictures come from CARTO and OpenStreetMap, and the map code comes from unpkg. They can see that your phone asked for a map of an area, like any map website. They have their own privacy policies."
+                ]
+            },
+            {
+                "heading": "How long we keep information",
+                "bullets": [
+                    "Account, contacts and volunteer details: until you ask us to delete them.",
+                    "SOS alert records, including the place where the SOS started: until you ask us to delete them. We do not delete them automatically yet.",
+                    "Unsafe-place reports: deleted automatically after 30 days.",
+                    "Live position during an SOS: not saved."
+                ]
+            },
+            {
+                "heading": "Keeping it safe",
+                "paragraphs": [
+                    "The app talks to our server over an encrypted connection. Your login is kept in your phone's secure storage. ID photos are kept in a private place and are not open to the public. Login attempts are limited.",
+                    "No system is perfectly safe. This demo version also uses a test login code, so it does not truly check that a phone number belongs to you. Please do not rely on it in a real emergency. Call 112."
+                ]
+            },
+            {
+                "heading": "Your choices",
+                "bullets": [
+                    "Change your name in Profile.",
+                    "Add, edit or remove contacts in Contacts.",
+                    "Volunteers can go offline at any time.",
+                    "Turn off location or camera permission in your phone settings. Some features will stop working.",
+                    "Ask us to delete your account and information by writing to {{contact}}. We will try to do it within 30 days."
+                ]
+            },
+            {
+                "heading": "Age",
+                "paragraphs": [
+                    "Shakti is meant for people aged 18 and over."
+                ]
+            },
+            {
+                "heading": "Changes and contact",
+                "paragraphs": [
+                    "If we change this policy, the date at the top changes. Questions: {{contact}}."
+                ]
+            }
+        ]
+    },
+    "terms": {
+        "title": "Terms of Use",
+        "intro": "Please read these terms before you use Shakti. By using the app, you agree to them. Shakti is a student project. Last updated: {{updated}}.",
+        "sections": [
+            {
+                "heading": "What Shakti is",
+                "paragraphs": [
+                    "Shakti is a support tool. It helps you alert people you trust and volunteers near you. It is not the police, an ambulance or any emergency service, and it is not connected to them."
+                ]
+            },
+            {
+                "heading": "In an emergency",
+                "paragraphs": [
+                    "Call 112 (or 1091 or 181 for women helplines). Do not rely only on Shakti. We cannot promise that an alert will reach anyone, that anyone will answer, or how quickly. The app needs internet, battery and location, and our free server can be slow or asleep."
+                ]
+            },
+            {
+                "heading": "This is a demo version",
+                "paragraphs": [
+                    "Login uses a test code, messages to contacts are not sent as real SMS, and features can change, break or stop at any time."
+                ]
+            },
+            {
+                "heading": "Your account",
+                "bullets": [
+                    "You must be 18 or older.",
+                    "Give true information.",
+                    "Keep your phone and your login safe."
+                ]
+            },
+            {
+                "heading": "Rules for everyone",
+                "bullets": [
+                    "Do not send false alerts or fake reports.",
+                    "Do not use Shakti to follow, track, threaten or harass anyone.",
+                    "Add only contacts who agree to be on your list.",
+                    "Do not try to break, overload or misuse the service."
+                ],
+                "paragraphs": [
+                    "We may pause or remove accounts that break these rules."
+                ]
+            },
+            {
+                "heading": "Rules for volunteers",
+                "bullets": [
+                    "Volunteers are ordinary members of the public. They are not police, security guards or trained responders.",
+                    "You choose whether to help. Never confront anyone or put yourself in danger. If it looks dangerous, call 112.",
+                    "After you accept, you can see a woman's name and exact location. Use it only to help her. Do not share it, save it, or contact her afterwards unless she asks.",
+                    "Our team looks at your ID photo before you get alerts. This is not a background check, and it does not promise that a volunteer is safe."
+                ]
+            },
+            {
+                "heading": "No guarantees",
+                "paragraphs": [
+                    "Shakti is provided as it is, without promises. As far as the law allows, the people who made Shakti are not responsible for loss or harm that comes from using it, for late or missing alerts, or for what volunteers, contacts or other users do."
+                ]
+            },
+            {
+                "heading": "Stopping",
+                "paragraphs": [
+                    "You can stop using Shakti at any time and ask us to delete your information. We may change or stop the service."
+                ]
+            },
+            {
+                "heading": "Changes and contact",
+                "paragraphs": [
+                    "If we change these terms, the date at the top changes. Questions: {{contact}}."
+                ]
+            }
+        ]
+    }
+}

@@ -150,7 +150,16 @@ export default function AccountScreen() {
                         emergency, always call 112.
                     </Text>
                 </View>
-
+                <View style={styles.card}>
+                    <Pressable style={styles.linkRow} onPress={() => router.push("/privacy")}>
+                        <Text style={styles.linkText}>Privacy Policy</Text>
+                        <Ionicons name="chevron-forward" size={20} color={colors.textMuted} />
+                    </Pressable>
+                    <Pressable style={styles.linkRow} onPress={() => router.push("/terms")}>
+                        <Text style={styles.linkText}>Terms of Use</Text>
+                        <Ionicons name="chevron-forward" size={20} color={colors.textMuted} />
+                    </Pressable>
+                </View>
                 <View style={{ height: spacing.lg }} />
                 <Button title="Log out" variant="outline" onPress={onLogout} />
             </ScrollView>
@@ -240,4 +249,11 @@ const styles = StyleSheet.create({
         marginTop: spacing.md,
     },
     devText: { fontSize: 13, color: colors.textMuted },
+    linkRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingVertical: spacing.sm,
+    },
+    linkText: { fontSize: 16, fontWeight: "600", color: colors.text },
 });
