@@ -13,7 +13,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../../components/Button";
 import SosButton from "../../components/SosButton";
-import { USE_TEST_LOCATION } from "../../constants/config";
+import { useSettings } from "../../context/SettingsContext";
 import { colors, radius, spacing } from "../../constants/theme";
 import { useAlert } from "../../context/AlertContext";
 import { useAuth } from "../../context/AuthContext";
@@ -23,7 +23,7 @@ type Contact = { _id: string; name: string; phone: string };
 
 export default function Home() {
     const router = useRouter();
-    const { user } = useAuth();
+    const { demoLocation } = useSettings();
     const { phase, sendSos } = useAlert();
     const [contacts, setContacts] = useState<Contact[]>([]);
     const busy = phase === "sending" || phase === "active";
@@ -75,7 +75,7 @@ export default function Home() {
                     <View style={styles.pill}>
                         <View style={styles.dot} />
                         <Text style={styles.pillText}>
-                            {USE_TEST_LOCATION ? "Test location" : "Location on"}
+                            {demoLocation ? "Demo location" : "Location on"}
                         </Text>
                     </View>
                 </View>

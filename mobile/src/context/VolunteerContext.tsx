@@ -10,7 +10,8 @@ import {
     useState,
 } from "react";
 import { Socket } from "socket.io-client";
-import { TEST_VOLUNTEER_LOCATION, USE_TEST_LOCATION } from "../constants/config";
+import { TEST_VOLUNTEER_LOCATION } from "../constants/config";
+import { isDemoLocation } from "../services/settings";
 import { api, errorMessage } from "../services/api";
 import { connectSocket, disconnectSocket } from "../services/socket";
 import type { Responder } from "./AlertContext";
@@ -81,7 +82,7 @@ const VolunteerContext = createContext<VolunteerContextValue | null>(null);
 
 // Where is the volunteer's phone right now?
 async function getMyPosition(): Promise<Point> {
-    if (USE_TEST_LOCATION) return TEST_VOLUNTEER_LOCATION;
+    if (isDemoLocation()) return TEST_VOLUNTEER_LOCATION;
     const perm = await Location.requestForegroundPermissionsAsync();
     if (perm.status !== "granted") {
         throw new Error("Please allow location, so we can alert you about people nearby.");
@@ -301,7 +302,7 @@ export function VolunteerProvider({ children }: { children: ReactNode }) {
             const a = activeRef.current;
             if (!a || a.phase !== "active") return;
             let pos: Point;
-            if (USE_TEST_LOCATION) {
+            if (isDemoLocation()) {
                 // DEVELOPMENT ONLY: pretend to walk toward the woman
                 if (!simPos.current) {
                     simPos.current = { lat: a.woman.lat + 0.004, lng: a.woman.lng + 0.004 };

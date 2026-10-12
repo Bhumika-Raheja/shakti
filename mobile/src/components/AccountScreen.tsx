@@ -12,7 +12,7 @@ import {
     View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { USE_TEST_LOCATION } from "../constants/config";
+import DemoLocationCard from "./DemoLocationCard";
 import { colors, radius, spacing } from "../constants/theme";
 import { useAuth } from "../context/AuthContext";
 import { api, errorMessage } from "../services/api";
@@ -135,13 +135,7 @@ export default function AccountScreen() {
                     ))}
                 </View>
 
-                {USE_TEST_LOCATION ? (
-                    <View style={styles.devCard}>
-                        <Text style={styles.devText}>
-                            Development mode: the app is using a test location, not your real GPS.
-                        </Text>
-                    </View>
-                ) : null}
+                <DemoLocationCard />
 
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>About Shakti</Text>

@@ -9,7 +9,8 @@ import {
     useState,
 } from "react";
 import { Socket } from "socket.io-client";
-import { TEST_LOCATION, USE_TEST_LOCATION } from "../constants/config";
+import { TEST_LOCATION } from "../constants/config";
+import { isDemoLocation } from "../services/settings";
 import { connectSocket, disconnectSocket } from "../services/socket";
 import { useAuth } from "./AuthContext";
 
@@ -62,7 +63,7 @@ const AlertContext = createContext<AlertContextValue | null>(null);
 
 // Where is the phone right now?
 export async function getPosition() {
-    if (USE_TEST_LOCATION) return TEST_LOCATION;
+    if (isDemoLocation()) return TEST_LOCATION;
     const perm = await Location.requestForegroundPermissionsAsync();
     if (perm.status !== "granted") {
         throw new Error("Please allow location, so helpers can find you.");
