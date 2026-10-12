@@ -24,7 +24,7 @@ const NUMBERS = [
     { number: "181", label: "Women helpline (domestic abuse)" },
 ];
 
-// The Profile tab, shared by women and volunteers:
+// The Profile tab, shared by women and volunteers
 // name, emergency numbers, and log out.
 export default function AccountScreen() {
     const { user, logout, refreshUser } = useAuth();
